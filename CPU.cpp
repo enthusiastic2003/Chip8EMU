@@ -46,7 +46,6 @@ class CPU{
             --sound_timer;
         }
 
-        printf("Delay Timer: %d, Sound Timer: %d\n", delay_timer, sound_timer);
     }
 
     bool keypad[16] = {false};  // Keypad array, with 16 keys
@@ -86,7 +85,6 @@ class CPU{
             // Check if the key is pressed or released
             if (SDL_GetKeyboardState(NULL)[SDL_GetScancodeFromKey(keyMapping[i])] == 1) {
                 keypad[i] = true;  // Key is pressed
-                printf("Key Pressed: %d\n", i);
             } else {
                 keypad[i] = false; // Key is not pressed
             }
@@ -160,7 +158,7 @@ class CPU{
         stack.init(); // Clear stack
         
         initKeyMapping(); // Initialize the key mapping
-        
+
         // Load fontset
         for (int i = 0; i < 80; i++)
         {
@@ -217,7 +215,6 @@ void drawSprite(Byte VX, Byte VY, Byte N) {
         Byte InstructionType = (opcode & 0xF000) >> 12;
         Word Instruction = opcode & 0x0FFF;
 
-        printf("Instruction: %x\n", opcode);
 
         switch (InstructionType)
         {
