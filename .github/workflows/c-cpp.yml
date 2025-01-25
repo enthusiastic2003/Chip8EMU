@@ -12,7 +12,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
-    - name: install sdl dev
-    - run: sudo apt update && sudo apt-get install libsdl2-2.0-0 && sudo apt install libsdl2-dev
-    
+    # Install SDL2 development libraries
+    - name: Install SDL2 Dev Libraries
+      run: |
+        sudo apt update
+        sudo apt-get install -y libsdl2-2.0-0 libsdl2-dev
+
+    # Install build tools (GCC, G++, or any required compiler and make tools)
+    - name: Install Build Tools
+      run: sudo apt-get install -y build-essential
+
+    # Set up the build
+    - name: Build the Executable
+      run: |
+        g++ CPU.cpp -o3 $(pkg-config --cflags --libs sdl2) -o C8Emu-linux-x86_64
+
+
+    - name: Upload Executable to Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: C8Emu-linux-x86_64
+        path: C8Emu-linux-x86_64
